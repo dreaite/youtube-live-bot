@@ -41,6 +41,8 @@
 3.  添加以下 **Repository Secrets**:
     *   `CLOUDFLARE_API_TOKEN`: 通过 [用户资料 > API Tokens](https://dash.cloudflare.com/profile/api-tokens) 创建 (模板选择: *Edit Cloudflare Workers*)。
     *   `CLOUDFLARE_ACCOUNT_ID`: 在 Workers 面板的右侧边栏可以找到。
+    *   `TELEGRAM_BOT_TOKEN`: 你的 Telegram Bot Token。
+    *   `RSS_BASE_URL`: (可选) 自定义的 RSS Base URL。
 4.  推送到 `main` 分支。Action 将会自动部署你的 Worker。
 
 #### 方案 B: 手动部署

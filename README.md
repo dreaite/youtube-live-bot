@@ -41,6 +41,8 @@ A serverless Telegram bot that monitors YouTube channels for live streams and se
 3.  Add the following **Repository Secrets**:
     *   `CLOUDFLARE_API_TOKEN`: Create via [User Profile > API Tokens](https://dash.cloudflare.com/profile/api-tokens) (Template: *Edit Cloudflare Workers*).
     *   `CLOUDFLARE_ACCOUNT_ID`: Found on the right sidebar of your Workers dashboard.
+    *   `TELEGRAM_BOT_TOKEN`: Your Telegram Bot Token.
+    *   `RSS_BASE_URL`: (Optional) Custom RSS base URL (if needed).
 4.  Push to the `main` branch. The Action will automatically deploy your worker.
 
 #### Option B: Manual Deployment

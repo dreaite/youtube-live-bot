@@ -94,6 +94,28 @@ Add the bot to your Group or Supergroup.
     /list
     ```
 
+*   **Forward Subscriptions**:
+    Allows copying subscriptions from the current chat to another chat (Group/Channel).
+    
+    1.  Add the bot to the **Target** chat/channel.
+    2.  Send `/id` in the **Target** chat to get the `Chat ID`.
+    3.  In the **Source** chat, send:
+        ```text
+        /forward_to <target_chat_id> [target_thread_id]
+        ```
+    4.  Select **"Forward All"** or specific channels from the interactive buttons.
+
+*   **Get Chat Info**:
+    ```text
+    /id
+    ```
+    *Returns the current Chat ID and Thread ID.*
+
+*   **Help**:
+    ```text
+    /help
+    ```
+
 ## How it Works
 
 1.  **Interactive**: When you send a command, Telegram pushes the update to the Worker (Webhook), which updates the subscription list in KV.

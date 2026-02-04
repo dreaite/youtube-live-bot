@@ -1,5 +1,7 @@
 # YouTube Live Telegram Bot (Cloudflare Workers Edition)
 
+[中文文档](README_CN.md) | English
+
 A serverless Telegram bot that monitors YouTube channels for live streams and sends notifications to Telegram chats, supergroups, and topics. Run entirely on Cloudflare Workers (Free Tier compatible).
 
 ## Features

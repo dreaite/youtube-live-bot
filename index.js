@@ -258,7 +258,10 @@ async function handleMessage(message, env) {
       return new Response('OK');
     }
 
-    const sessionId = crypto.randomUUID();
+    // Use global crypto or fallback
+    const uuid = globalThis.crypto?.randomUUID ? globalThis.crypto.randomUUID() : Math.random().toString(36).substring(2) + Math.random().toString(36).substring(2);
+    const sessionId = uuid;
+    
     const sessionData = {
       targetChatId,
       targetThreadId,

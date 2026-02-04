@@ -31,6 +31,12 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           RSS_BASE_URL: ${{ secrets.RSS_BASE_URL }}
 
+      - name: Deploy Code
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
       - name: Upload Secrets to Cloudflare
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -43,9 +49,3 @@ jobs:
           
           echo "Uploading RSS_BASE_URL..."
           echo "$RSS_BASE_URL" | npx wrangler secret put RSS_BASE_URL --name youtube-live-bot
-
-      - name: Deploy Code
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

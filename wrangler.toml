@@ -1,0 +1,7 @@
+name = "youtube-live-bot"
+main = "index.js"
+compatibility_date = "2024-02-04"
+node_compat = true
+
+[triggers]
+crons = ["* * * * *"]

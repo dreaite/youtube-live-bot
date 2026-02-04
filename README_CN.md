@@ -94,6 +94,28 @@ curl "https://api.telegram.org/bot<YOUR_BOT_TOKEN>/setWebhook?url=<YOUR_WORKER_U
     /list
     ```
 
+*   **转发订阅**:
+    允许将当前会话的订阅复制到另一个会话（群组/频道）。
+    
+    1.  将机器人添加到 **目标** 群组或频道。
+    2.  在 **目标** 群组/频道中发送 `/id` 以获取 `Chat ID`。
+    3.  在 **源** 群组中发送：
+        ```text
+        /forward_to <target_chat_id> [target_thread_id]
+        ```
+    4.  通过点击按钮选择 **"Forward All"** (转发所有) 或特定频道。
+
+*   **获取会话信息**:
+    ```text
+    /id
+    ```
+    *返回当前的 Chat ID 和 Thread ID。*
+
+*   **帮助**:
+    ```text
+    /help
+    ```
+
 ## 工作原理
 
 1.  **交互模式**: 当你发送指令时，Telegram 将更新推送给 Worker (Webhook)，Worker 更新 KV 中的订阅列表。

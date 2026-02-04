@@ -29,7 +29,7 @@ A serverless Telegram bot that monitors YouTube channels for live streams and se
 
 2.  **Update Configuration**:
     *   Open `wrangler.toml` in this repository.
-    *   Replace `TODO_REPLACE_WITH_YOUR_KV_ID` with your actual KV ID.
+    *   Replace `YOUTUBE_BOT_KV` with your actual KV ID.
     *   (Optional) You can leave `preview_id` as is or set it to the same ID for testing.
 
 ### 2. Deployment

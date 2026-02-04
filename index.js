@@ -235,7 +235,15 @@ async function handleMessage(message, env) {
     }
 
     const targetChatId = parseInt(parts[1]);
-    const targetThreadId = parts.length > 2 ? parseInt(parts[2]) : null;
+    let targetThreadId = null;
+
+    if (parts.length > 2) {
+      targetThreadId = parseInt(parts[2]);
+      if (isNaN(targetThreadId)) {
+         await sendTelegramMessage(env.TELEGRAM_BOT_TOKEN, chatId, threadId, '⚠️ Invalid Target Thread ID.');
+         return new Response('OK');
+      }
+    }
 
     if (isNaN(targetChatId)) {
       await sendTelegramMessage(env.TELEGRAM_BOT_TOKEN, chatId, threadId, '⚠️ Invalid Target Chat ID.');
@@ -250,7 +258,7 @@ async function handleMessage(message, env) {
       return new Response('OK');
     }
 
-    const sessionId = Math.random().toString(36).substring(2, 10);
+    const sessionId = crypto.randomUUID();
     const sessionData = {
       targetChatId,
       targetThreadId,
@@ -295,6 +303,12 @@ async function handleCallback(callbackQuery, env) {
   }
 
   const parts = data.split(':');
+  if (parts.length < 3) {
+    // Malformed callback data
+    await answerCallbackQuery(env.TELEGRAM_BOT_TOKEN, callbackQuery.id, "❌ Invalid callback data.");
+    return new Response('OK');
+  }
+
   const sessionId = parts[1];
   const action = parts[2];
 
@@ -305,6 +319,13 @@ async function handleCallback(callbackQuery, env) {
   }
 
   const session = JSON.parse(sessionRaw);
+  
+  // Validate source chat to prevent cross-chat replay attacks
+  if (session.sourceChatId !== chatId) {
+    await answerCallbackQuery(env.TELEGRAM_BOT_TOKEN, callbackQuery.id, "❌ This button is not for this chat.");
+    return new Response('OK');
+  }
+
   const { targetChatId, targetThreadId, channelMap } = session;
 
   let channelsToForward = [];
@@ -341,6 +362,9 @@ async function handleCallback(callbackQuery, env) {
     await answerCallbackQuery(env.TELEGRAM_BOT_TOKEN, callbackQuery.id, `✅ Forwarded ${addedCount} subscriptions!`);
     
     await sendTelegramMessage(env.TELEGRAM_BOT_TOKEN, chatId, session.sourceThreadId, `✅ Successfully forwarded ${addedCount} subscriptions to target.`);
+    
+    // Delete session to prevent replay
+    await env.DB.delete(`fwd_session:${sessionId}`);
   } else {
     await answerCallbackQuery(env.TELEGRAM_BOT_TOKEN, callbackQuery.id, "⚠️ Channels already exist in target.");
   }

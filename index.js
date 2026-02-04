@@ -2,6 +2,11 @@ import { XMLParser } from 'fast-xml-parser';
 
 export default {
   async fetch(request, env, ctx) {
+    if (!env.TELEGRAM_BOT_TOKEN) {
+      console.error('CRITICAL: TELEGRAM_BOT_TOKEN is missing in environment variables!');
+      return new Response('Internal Server Error: Configuration Missing', { status: 500 });
+    }
+
     if (request.method !== 'POST') {
       return new Response('Method not allowed', { status: 405 });
     }
@@ -24,6 +29,11 @@ export default {
   },
 
   async scheduled(event, env, ctx) {
+    if (!env.TELEGRAM_BOT_TOKEN) {
+      console.error('CRITICAL: TELEGRAM_BOT_TOKEN is missing in scheduled event!');
+      return;
+    }
+
     const parser = new XMLParser({
       ignoreAttributes: false,
       attributeNamePrefix: "@_"

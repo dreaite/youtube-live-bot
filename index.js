@@ -1,6 +1,6 @@
-const { XMLParser } = require('fast-xml-parser');
+import { XMLParser } from 'fast-xml-parser';
 
-module.exports = {
+export default {
   async fetch(request, env, ctx) {
     if (request.method !== 'POST') {
       return new Response('Method not allowed', { status: 405 });

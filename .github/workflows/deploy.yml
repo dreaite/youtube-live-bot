@@ -23,6 +23,9 @@ jobs:
         run: |
           test -n "$TELEGRAM_BOT_TOKEN"
           test -n "$RSS_BASE_URL"
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          RSS_BASE_URL: ${{ secrets.RSS_BASE_URL }}
       - name: Deploy to Cloudflare Workers
         uses: cloudflare/wrangler-action@v3
         with:

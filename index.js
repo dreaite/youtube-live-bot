@@ -195,7 +195,7 @@ async function handleMessage(message, env) {
     }
     
     const channelName = parts[1];
-    const rssUrl = (env.RSS_BASE_URL || 'https://rss.dreaife.tokyo/youtube/live/') + channelName;
+    const rssUrl = (env.RSS_BASE_URL || 'https://rsshub.app/youtube/live/') + channelName;
     
     const subs = await getSubscriptions(env);
     const exists = subs.some(s => s.channelName === channelName && s.chatId === chatId && s.threadId === threadId);
@@ -360,7 +360,7 @@ async function handleCallback(callbackQuery, env) {
   let addedCount = 0;
 
   for (const channelName of channelsToForward) {
-    const rssUrl = (env.RSS_BASE_URL || 'https://rss.dreaife.tokyo/youtube/live/') + channelName;
+    const rssUrl = (env.RSS_BASE_URL || 'https://rsshub.app/youtube/live/') + channelName;
     
     const exists = subs.some(s => s.channelName === channelName && s.chatId === targetChatId && s.threadId === targetThreadId);
     
